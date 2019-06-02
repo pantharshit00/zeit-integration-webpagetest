@@ -15,7 +15,7 @@ module.exports = async function({ token, teamId }) {
       body: JSON.stringify({
         name: 'WebPageTest Event Hook',
         url: `${HOST}/hook.js`,
-        events: ['deployment-ready'],
+        events: ['deployment'],
       }),
     }
   );

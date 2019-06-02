@@ -1,11 +1,16 @@
 const fetch = require('node-fetch');
 
-module.exports = async ({ accessToken, id }) => {
-  const res = await fetch(`https://api.zeit.co/v4/now/deployments/${id}`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
+module.exports = async ({ accessToken, id, teamId }) => {
+  const res = await fetch(
+    `https://api.zeit.co/v9/now/deployments/${id}${
+      teamId ? `?teamId=${teamId}` : ''
+    }`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
 
   const body = await res.json();
 

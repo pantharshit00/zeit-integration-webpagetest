@@ -44,6 +44,7 @@ module.exports = mongo.withClose(
           const dData = await fetchDeployment({
             accessToken: owner.accessToken,
             id: item.id,
+            teamId: owner.id.startsWith('team_') ? owner.id : null,
           });
 
           if (!dData.state === 'READY') {
