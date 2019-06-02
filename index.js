@@ -52,7 +52,10 @@ module.exports = withUiHook(
       project,
       team,
       user,
+      installationUrl,
+      query,
     } = payload;
+    const from = parseInt(clientState.from || query.from, 10) || undefined;
     const db = await mongo();
     const id = team ? team.id : user.id;
     if (action === 'submitKey') {
@@ -71,20 +74,33 @@ module.exports = withUiHook(
 
     if (store.apiKey) {
       let deployments;
+      let next;
       if (project) {
         ({ deployments } = await zeitClient.fetchAndThrow(
           `/v4/now/deployments?${stringify({
             limit: 10,
+            from,
             projectId: project.id,
           })}`,
           {}
         ));
+        if (deployments.length > 10) {
+          deployments = deployments.slice(0, 10);
+          next = deployments[deployments.length - 1].created - 1;
+        }
       } else {
         // get projects maybe now
-        const projects = await zeitClient.fetchAndThrow(
-          `/v1/projects/list`,
+        let projects = await zeitClient.fetchAndThrow(
+          `/v1/projects/list${stringify({
+            limit: 5 + 1,
+            from,
+          })}`,
           {}
         );
+        if (projects.length > 5) {
+          projects = projects.slice(0, 5);
+          next = projects[projects.length - 1].createdAt - 1;
+        }
 
         const projectDeployments = await Promise.all(
           projects.map(p =>
@@ -126,6 +142,7 @@ module.exports = withUiHook(
         .toArray();
       mongo.close().catch(console.error);
       const deploymentDocMap = new Map(deploymentDocs.map(d => [d.id, d]));
+      const nextUrl = next ? `${installationUrl}?from=${next}` : null;
       const ownerSlug = team ? team.slug : user.username;
       let needsAuthRefresh = false;
 
@@ -214,6 +231,7 @@ module.exports = withUiHook(
       return htm`
       <Page>
         ${deploymentViews}
+        ${nextUrl ? htm`<Link href=${nextUrl}>View Next →</Link>` : ''}
         ${needsAuthRefresh ? htm`<AutoRefresh timeout="5000" />` : ''}
       </Page>
     `;

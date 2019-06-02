@@ -66,6 +66,7 @@ module.exports = mongo.withClose(
                 {
                   $set: {
                     auditing: 'done',
+                    error: null,
                     webPageTestUrl: summary,
                     scores: {
                       compression: firstView.score_compress,

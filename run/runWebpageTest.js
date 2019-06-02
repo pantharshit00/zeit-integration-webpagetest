@@ -79,6 +79,7 @@ module.exports = mongo.withClose(
                 {
                   $set: {
                     auditing: 'running',
+                    error: null,
                     testId,
                   },
                 }
