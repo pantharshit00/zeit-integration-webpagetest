@@ -159,7 +159,7 @@ module.exports = withUiHook(
           }
         } else if (
           doc &&
-          (doc.auditing === 'scheduled' || doc.auditting === 'running')
+          (doc.auditing === 'scheduled' || doc.auditing === 'running')
         ) {
           contentView = htm`<P>Auditing...</P>`;
           needsAuthRefresh = true;
