@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 
 module.exports = async ({ accessToken, id, teamId }) => {
   const res = await fetch(
-    `https://api.zeit.co/v9/now/deployments/${id}${
+    `https://api.zeit.co/v4/now/deployments/${id}${
       teamId ? `?teamId=${teamId}` : ''
     }`,
     {
