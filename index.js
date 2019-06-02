@@ -53,10 +53,10 @@ module.exports = withUiHook(
       team,
       user,
     } = payload;
+    const db = await mongo();
     const id = team ? team.id : user.id;
     if (action === 'submitKey') {
       store.apiKey = clientState.apiKey;
-      const db = await mongo();
       // save it in mongo
       await db.collection('users').updateOne(
         { id },
@@ -106,7 +106,6 @@ module.exports = withUiHook(
         .map(d => d.uid);
 
       console.log(`getting deployment docs`);
-      const db = await mongo();
       const deploymentDocs = await db
         .collection('deployments')
         .find(
