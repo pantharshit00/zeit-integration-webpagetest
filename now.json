@@ -1,6 +1,6 @@
 {
   "name": "webpagetest-integration",
-  "alias": "webpagetest.now.sh",
+  "alias": "webpagetest.tech",
   "version": 2,
   "env": {
     "MONGO_DB": "@mongo_db",
