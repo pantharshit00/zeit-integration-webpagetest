@@ -1,0 +1,25 @@
+{
+  "name": "webpagetest-integration",
+  "alias": "webpagetest.now.sh",
+  "version": 2,
+  "env": {
+    "MONGO_DB": "@mongo_db",
+    "MONGO_URI": "@mongo_uri",
+    "HOST": "@webpagetest_host",
+    "CLIENT_ID": "@client_id",
+    "CLIENT_SECRET": "@client_secret",
+    "API_SECRET": "@api_secret"
+  },
+  "builds": [
+    { "src": "index.js", "use": "@now/node" },
+    {
+      "src": "callback.js",
+      "use": "@now/node"
+    },
+    {
+      "src": "hook.js",
+      "use": "@now/node"
+    },
+    { "src": "run/*.js", "use": "@now/node" }
+  ]
+}
