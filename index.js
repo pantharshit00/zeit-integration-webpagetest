@@ -91,7 +91,7 @@ module.exports = withUiHook(
       } else {
         // get projects maybe now
         let projects = await zeitClient.fetchAndThrow(
-          `/v1/projects/list${stringify({
+          `/v1/projects/list?${stringify({
             limit: 5 + 1,
             from,
           })}`,
