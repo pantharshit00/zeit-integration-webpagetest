@@ -187,8 +187,7 @@ module.exports = withUiHook(
           contentView = htm`<P>No report available</P>`;
         }
 
-        return htm`
-      <Fieldset>
+        return htm`<Fieldset>
         <FsContent>
           ${
             d.project
@@ -208,6 +207,7 @@ module.exports = withUiHook(
         </Box>
           <BR />
           ${contentView}
+          </FsContent>
         </Fieldset>
       `;
       });
