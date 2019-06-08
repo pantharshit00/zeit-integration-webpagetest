@@ -246,7 +246,7 @@ module.exports = withUiHook(
           <Input name="apiKey" value="${store.apiKey || ''}" />
         </FsContent>
         <FsFooter>
-          <P>You can grab your API key from <Link target="_blank" href="https://www.webpagetest.org/getkey.php">here</Link></P>
+          <P>You can grab your API key from <Link target="_blank" href="https://www.webpagetest.org/getkey.php">here</Link>. Please not that the API key is in form of <Box display="inline-block" color="#bd10e0" fontFamily="monospace">${'`A.XXXXXXXXX`'}</Box>. Please don't forget the <Box display="inline-block" fontFamily="monospace" color="#bd10e0">${'`A.`'}</Box> part</P>
         </FsFooter>
       </Fieldset>
       <Button action="submitKey">Submit</Button>
